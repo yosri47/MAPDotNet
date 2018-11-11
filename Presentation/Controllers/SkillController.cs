@@ -32,6 +32,7 @@ namespace Presentation.Controllers
                 });
             }
             return View(skills);
+
         }
 
         // GET: Skill/Details/5
