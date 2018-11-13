@@ -1,0 +1,58 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Photo
+        </th>
+        <th>
+            UserId
+        </th>
+        <th>
+            Name
+        </th>
+        
+        <th>
+            Availability
+        </th>
+        <th>
+            Rate
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in ViewBag.result) {
+    <tr>
+        <td>
+            <img src="@item.photo" height="50px" width="50px" />
+        </td>
+        <td>
+            @item.userId
+        </td>
+        <td>
+            @item.name
+        </td>
+        
+        <td>
+            @item.availability
+        </td>
+        <td>
+            @item.rate
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.userId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.userId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.userId })
+        </td>
+    </tr>
+}
+
+</table>

@@ -243,6 +243,8 @@
     <Compile Include="Controllers\FormController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ResourceController.cs" />
+    <Compile Include="Controllers\ResumeController.cs" />
     <Compile Include="Controllers\SkillController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -348,11 +350,15 @@
     <Content Include="Views\Skill\Index.cshtml" />
     <Content Include="Views\Skill\Create.cshtml" />
     <Content Include="Views\Skill\Details.cshtml" />
+    <Content Include="Views\Resource\Index.cshtml" />
+    <Content Include="Views\Resource\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Back\vendors\" />
     <Folder Include="Content\Front\" />
+    <Folder Include="Content\Upload\Pictures\" />
+    <Folder Include="Views\Resume\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
