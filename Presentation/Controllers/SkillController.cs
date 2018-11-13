@@ -1,9 +1,13 @@
-﻿using Presentation.Models;
+﻿using Domain.Entities;
+using Newtonsoft.Json;
+using Presentation.Models;
 using Service.IServices;
 using Service.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Web;
 using System.Web.Mvc;
 
@@ -20,18 +24,19 @@ namespace Presentation.Controllers
         // GET: Skill
         public ActionResult Index()
         {
-            var skills = new List<SkillVM>(); 
-            var listskills = skillService.GetMany();
-            foreach (var s in listskills)
+            HttpClient Client = new HttpClient();
+            Client.BaseAddress = new Uri("http://localhost:18080");
+            Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            HttpResponseMessage response = Client.GetAsync("map-web/rest/skills").Result;
+            if(response.IsSuccessStatusCode)
             {
-                skills.Add(new SkillVM
-                {
-                    skillId = s.skillId,
-                    name = s.name,
-                    category = s.category
-                });
+                ViewBag.result = response.Content.ReadAsAsync<IEnumerable<SkillVM>>().Result;
             }
-            return View(skills);
+            else
+            {
+                ViewBag.result = "error";
+            }
+            return View();
 
         }
 
@@ -44,23 +49,17 @@ namespace Presentation.Controllers
         // GET: Skill/Create
         public ActionResult Create()
         {
-            return View();
+            return View("Create");
         }
 
         // POST: Skill/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(SkillVM sk)
         {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            HttpClient Client = new HttpClient();
+            Client.BaseAddress = new Uri("http://localhost:18080");
+            Client.PostAsJsonAsync<SkillVM>("map-web/rest/skills", sk).ContinueWith((postTask) => postTask.Result.EnsureSuccessStatusCode());
+            return RedirectToAction("Index");
         }
 
         // GET: Skill/Edit/5
@@ -75,8 +74,6 @@ namespace Presentation.Controllers
         {
             try
             {
-                // TODO: Add update logic here
-
                 return RedirectToAction("Index");
             }
             catch
@@ -88,7 +85,11 @@ namespace Presentation.Controllers
         // GET: Skill/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            HttpClient Client = new HttpClient();
+            Client.BaseAddress = new Uri("http://localhost:18080");
+            Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            HttpResponseMessage response = Client.GetAsync("map-web/rest/skills/"+id).Result;
+            return RedirectToAction("Index");
         }
 
         // POST: Skill/Delete/5
@@ -97,8 +98,6 @@ namespace Presentation.Controllers
         {
             try
             {
-                // TODO: Add delete logic here
-
                 return RedirectToAction("Index");
             }
             catch

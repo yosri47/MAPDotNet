@@ -10,5 +10,6 @@ namespace Presentation.Models
         public int skillId { get; set; }
         public string category { get; set; }
         public string name { get; set; }
+        public int? count { get; set; }
     }
 }
