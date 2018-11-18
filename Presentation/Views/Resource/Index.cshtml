@@ -32,7 +32,8 @@
 @foreach (var item in ViewBag.result) {
     <tr>
         <td>
-            <img src="@item.photo" height="50px" width="50px" />
+            @{string path = "~/Content/Upload/Pictures/" + @item.photo;}
+            <img src="@Url.Content(path)" width="50" height="50" />
         </td>
         <td>
             @item.userId
@@ -40,7 +41,6 @@
         <td>
             @item.name
         </td>
-        
         <td>
             @item.availability
         </td>
@@ -48,9 +48,7 @@
             @item.rate
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.userId }) |
             @Html.ActionLink("Details", "Details", new { id=item.userId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.userId })
         </td>
     </tr>
 }

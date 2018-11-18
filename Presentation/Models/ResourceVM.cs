@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Domain.Entities;
 
 namespace Presentation.Models
 {
@@ -25,15 +26,37 @@ namespace Presentation.Models
         public string sector { get; set; }
 
         public int seniority { get; set; }
+        public string emailaddress { get; set; }
+        public string password { get; set; }
 
         public int userId { get; set; }
 
         public int? leaveId { get; set; }
+        public _break leave { get; set; }
 
         public int? mandateId { get; set; }
+        public mandate mandate { get; set; }
 
         public int? resumeId { get; set; }
+        public ResumeVM resume { get; set; }
 
         public int? projectId { get; set; }
+        public project project { get; set; }
+
+        public void setAttributes(ressource r)
+        {
+            this.availability = r.availability;
+            this.contractType = r.contractType;
+            this.isActive = r.isActive;
+            this.leaveId = r.leaveId;
+            this.mandateId = r.mandateId;
+            this.note = r.note;
+            this.rate = r.rate;
+            this.photo = r.photo;
+            this.sector = r.sector;
+            this.seniority = r.seniority;
+            this.userId = r.userId;
+            this.projectId = r.projectId;
+        }
     }
 }

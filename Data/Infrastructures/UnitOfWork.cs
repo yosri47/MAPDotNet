@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Data.Infrastructures;
+using System.Data.Entity.Infrastructure;
+using System.Diagnostics;
 
 namespace Data.Infrastructures
 {
@@ -19,7 +21,16 @@ namespace Data.Infrastructures
         public void Commit() 
         {
             //ctx.SaveChanges();
-            factory.DataContext.SaveChanges();
+           try { 
+             factory.DataContext.SaveChanges();
+            }catch(Exception e)
+            {
+                Debug.WriteLine(e.GetBaseException());
+                Debug.WriteLine(e.Message);
+                Debug.WriteLine(e.InnerException.Message);
+            }
+
+
         }
 
         public void Dispose()
@@ -31,5 +42,7 @@ namespace Data.Infrastructures
         {
             return new RepositoryBase<T>(factory.DataContext);
         }
+        
     }
+    
 }

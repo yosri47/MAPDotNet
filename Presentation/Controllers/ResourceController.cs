@@ -1,4 +1,7 @@
-﻿using Presentation.Models;
+﻿using Domain.Entities;
+using Presentation.Models;
+using Service.IServices;
+using Service.Services;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -12,27 +15,41 @@ namespace Presentation.Controllers
 {
     public class ResourceController : Controller
     {
+        IResourceService rs;
+        IUserService us;
+        public ResourceController()
+        {
+            rs = new ResourceService();
+            us = new UserService();
+        }
         // GET: Resource
         public ActionResult Index()
         {
-            HttpClient Client = new HttpClient();
-            Client.BaseAddress = new Uri("http://localhost:18080");
-            Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            HttpResponseMessage response = Client.GetAsync("map-web/rest/resoures").Result;
-            if (response.IsSuccessStatusCode)
+            var listres = rs.GetMany(r => r.isActive ==true);
+            var res = new List<ResourceVM>();
+            ResourceVM resource = new ResourceVM();
+            foreach (ressource r in listres)
             {
-                ViewBag.result = response.Content.ReadAsAsync<IEnumerable<ResourceVM>>().Result;
+                resource.setAttributes(r);
+                resource.name = rs.getNameFromId(resource.userId);
+                res.Add(resource);
             }
-            else
-            {
-                ViewBag.result = "error";
-            }
+            ViewBag.result = res;
             return View();
+
         }
 
         // GET: Resource/Details/5
         public ActionResult Details(int id)
         {
+            ressource res = rs.GetById(id);
+            ResourceVM r = new ResourceVM();
+            r.setAttributes(res);
+            r.name = rs.getNameFromId(r.userId);
+            r.project = rs.getProject(r.projectId);
+            r.leave = rs.getLeave(r.leaveId);
+            r.mandate = rs.getMandate(r.mandateId);
+            ViewBag.result = r;
             return View();
         }
 
@@ -44,13 +61,21 @@ namespace Presentation.Controllers
 
         // POST: Resource/Create
         [HttpPost]
-        public ActionResult Create(ResourceVM res)
+        public ActionResult Create(ResourceVM r)
         {
-            
-
-            HttpClient Client = new HttpClient();
-            Client.BaseAddress = new Uri("http://localhost:18080");
-            Client.PostAsJsonAsync<ResourceVM>("map-web/rest/resources", res).ContinueWith((postTask) => postTask.Result.EnsureSuccessStatusCode());
+            ResourceVM resource = new ResourceVM();
+            us.Add(new user {
+                name = r.name,
+                emailAddress = r.emailaddress,
+                userType = "Resource"
+            });
+            us.Commit();
+            rs.Add(new ressource {
+                availability = "Available",contractType = "InterMandate",isActive = true,isOnLeave = false,
+                note = r.note,rate = r.rate,photo = "Default.jpeg",userId = rs.getUserId(r.name,r.emailaddress),sector = r.sector,
+                seniority = r.seniority
+            });
+            rs.Commit();
             return RedirectToAction("Index");
         }
 
@@ -79,7 +104,11 @@ namespace Presentation.Controllers
         // GET: Resource/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            HttpClient Client = new HttpClient();
+            Client.BaseAddress = new Uri("http://localhost:18080");
+            Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            HttpResponseMessage response = Client.GetAsync("map-web/rest/resoures/remove?id="+id).Result;
+            return RedirectToAction("Index");
         }
 
         // POST: Resource/Delete/5
