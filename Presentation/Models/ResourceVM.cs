@@ -13,9 +13,9 @@ namespace Presentation.Models
 
         public string contractType { get; set; }
 
-        public bool? isActive { get; set; }
+        public bool isActive { get; set; }
 
-        public bool? isOnLeave { get; set; }
+        public bool isOnLeave { get; set; }
 
         public string note { get; set; }
 
@@ -31,32 +31,17 @@ namespace Presentation.Models
 
         public int userId { get; set; }
 
-        public int? leaveId { get; set; }
+        public int leaveId { get; set; }
         public _break leave { get; set; }
 
-        public int? mandateId { get; set; }
+        public int mandateId { get; set; }
         public mandate mandate { get; set; }
 
-        public int? resumeId { get; set; }
-        public ResumeVM resume { get; set; }
+        public int resumeId { get; set; }
+        public resume resume { get; set; }
 
-        public int? projectId { get; set; }
+        public int projectId { get; set; }
         public project project { get; set; }
 
-        public void setAttributes(ressource r)
-        {
-            this.availability = r.availability;
-            this.contractType = r.contractType;
-            this.isActive = r.isActive;
-            this.leaveId = r.leaveId;
-            this.mandateId = r.mandateId;
-            this.note = r.note;
-            this.rate = r.rate;
-            this.photo = r.photo;
-            this.sector = r.sector;
-            this.seniority = r.seniority;
-            this.userId = r.userId;
-            this.projectId = r.projectId;
-        }
     }
 }

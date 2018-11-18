@@ -58,12 +58,14 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IServices\ILeaveService.cs" />
     <Compile Include="IServices\IMandateService.cs" />
     <Compile Include="IServices\IProjectService.cs" />
     <Compile Include="IServices\IResourceService.cs" />
+    <Compile Include="IServices\IResumeService.cs" />
     <Compile Include="IServices\ISkillService.cs" />
     <Compile Include="IServices\IUserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -71,6 +73,7 @@
     <Compile Include="Services\MandateService.cs" />
     <Compile Include="Services\ProjectService.cs" />
     <Compile Include="Services\ResourceService.cs" />
+    <Compile Include="Services\ResumeService.cs" />
     <Compile Include="Services\SkillService.cs" />
     <Compile Include="Services\UserService.cs" />
   </ItemGroup>

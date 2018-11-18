@@ -15,34 +15,37 @@ namespace Service.Services
         static IDataBaseFactory Factory = new DataBaseFactory();
         static IUnitOfWork utk = new UnitOfWork(Factory);
         IUserService users;
+        IProjectService projects;
+        IResumeService resumes;
+        ILeaveService leaves;
+        IMandateService mandates;
         
         public ResourceService() : base(utk) {
             users = new UserService();
+            projects = new ProjectService();
+            resumes = new ResumeService();
+            leaves = new LeaveService();
+            mandates = new MandateService();
         }
 
-        public _break getLeave(int? leaveId)
+        public _break getLeave(int leaveId)
         {
-            throw new NotImplementedException();
+            return leaves.GetById(leaveId);
         }
 
-        public mandate getMandate(int? mandateId)
+        public mandate getMandate(int mandateId)
         {
-            throw new NotImplementedException();
+             return mandates.GetById(mandateId);
         }
 
         public string getNameFromId(int id)
         {
-            try {
-                return users.GetMany(u => u.userId == id).Select(u => u.name).First();
-            }catch(Exception e)
-            {
-                return "Anonymous";
-            }
+            return users.GetMany(u => u.userId == id).Select(u => u.name).First();
         }
 
-        public project getProject(int? projectId)
+        public project getProject(int projectId)
         {
-            throw new NotImplementedException();
+            return projects.GetById(projectId);
         }
 
         public int getUserId(string name, string emailaddress)
@@ -50,10 +53,15 @@ namespace Service.Services
             try
             {
                 return users.GetMany(u => u.emailAddress.Equals(emailaddress) && u.name.Equals(name)).Select(u => u.userId).First();
-            }catch(Exception e)
+            }catch(Exception)
             {
                 return 4;
             }
+        }
+
+        public resume getResume(int resumeId)
+        {
+            return resumes.GetById(resumeId);
         }
     }
 }

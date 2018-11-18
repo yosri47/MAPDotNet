@@ -9,25 +9,26 @@
 <div>
     <h4>ResourceVM</h4>
     <hr />
-    @foreach (var res in ViewBag.result) {
-    <dl class="dl-horizontal">
-        <dt>
-            NAME
-        </dt>
-        <dd>
-            @res.name
-        </dd>
-        <dt>
-            ID
-        </dt>
-        <dd>
-            @res.userId
-        </dd>
-    </dl>
-    
+        <dl class="dl-horizontal">
+            <dt>
+                NAME
+            </dt>
+            <dd>
+                @ViewBag.result.name
+            </dd>
+            <dt>
+                ID
+            </dt>
+            <dd>
+                @ViewBag.result.userId
+            </dd>
+
+        </dl>
+
+
+        <p>
+            @Html.ActionLink("Edit", "Edit", new { id = @ViewBag.result.userId })
+            @Html.ActionLink("Back to List", "Index")
+        </p>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = @res.userId }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
-}
+

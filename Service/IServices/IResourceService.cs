@@ -12,8 +12,9 @@ namespace Service.IServices
     {
         String getNameFromId(int id);
         int getUserId(string name, string emailaddress);
-        project getProject(int? projectId);
-        _break getLeave(int? leaveId);
-        mandate getMandate(int? mandateId);
+        project getProject(int projectId);
+        _break getLeave(int leaveId);
+        mandate getMandate(int mandateId);
+        resume getResume(int resumeId);
     }
 }

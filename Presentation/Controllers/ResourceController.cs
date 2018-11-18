@@ -25,14 +25,27 @@ namespace Presentation.Controllers
         // GET: Resource
         public ActionResult Index()
         {
-            var listres = rs.GetMany(r => r.isActive ==true);
+            var listres = rs.GetMany();
             var res = new List<ResourceVM>();
-            ResourceVM resource = new ResourceVM();
             foreach (ressource r in listres)
             {
-                resource.setAttributes(r);
-                resource.name = rs.getNameFromId(resource.userId);
-                res.Add(resource);
+                res.Add(new ResourceVM {
+                    availability = r.availability,
+                    contractType = r.contractType,
+                    isActive = r.isActive ?? true,
+                    isOnLeave = r.isOnLeave ?? false,
+                    note = r.note,
+                    rate = r.rate,
+                    photo = r.photo,
+                    userId = r.userId,
+                    sector = r.sector,
+                    seniority = r.seniority,
+                    leaveId = r.leaveId ?? 0,
+                    projectId = r.projectId ?? 0,
+                    mandateId = r.mandateId ?? 0,
+                    name = rs.getNameFromId(r.userId),
+                    resumeId = r.resumeId ?? 0
+                });
             }
             ViewBag.result = res;
             return View();
@@ -42,14 +55,31 @@ namespace Presentation.Controllers
         // GET: Resource/Details/5
         public ActionResult Details(int id)
         {
-            ressource res = rs.GetById(id);
-            ResourceVM r = new ResourceVM();
-            r.setAttributes(res);
-            r.name = rs.getNameFromId(r.userId);
-            r.project = rs.getProject(r.projectId);
-            r.leave = rs.getLeave(r.leaveId);
-            r.mandate = rs.getMandate(r.mandateId);
-            ViewBag.result = r;
+            var r = rs.GetById(id);
+            ResourceVM res = new ResourceVM
+            {
+                availability = r.availability,
+                contractType = r.contractType,
+                isActive = r.isActive ?? true,
+                isOnLeave = r.isOnLeave ?? false,
+                note = r.note,
+                rate = r.rate,
+                photo = r.photo,
+                userId = id,
+                sector = r.sector,
+                seniority = r.seniority,
+                leaveId = r.leaveId ?? 0,
+                projectId = r.projectId ?? 0,
+                mandateId = r.mandateId ?? 0,
+                name = rs.getNameFromId(r.userId),
+                resumeId = r.resumeId ?? 0
+            };
+            res.name = rs.getNameFromId(res.userId);
+            if (res.leaveId != 0) { res.leave = rs.getLeave(res.leaveId); }
+            if (res.resumeId != 0) { res.resume = rs.getResume(res.resumeId); }
+            if(res.mandateId != 0){ res.mandate = rs.getMandate(res.mandateId); }
+            if(res.projectId != 0) { res.project = rs.getProject(res.projectId); }
+            ViewBag.result = res;
             return View();
         }
 
