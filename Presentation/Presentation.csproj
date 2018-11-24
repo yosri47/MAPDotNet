@@ -98,6 +98,10 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="PresentationCore" />
+    <Reference Include="RestSharp, Version=106.5.4.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.106.5.4\lib\net452\RestSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel" />
     <Reference Include="System.Configuration.Install" />
@@ -271,9 +275,11 @@
     <Compile Include="Controllers\HolidayController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MandateController.cs" />
     <Compile Include="Controllers\ResourceController.cs" />
     <Compile Include="Controllers\ResumeController.cs" />
     <Compile Include="Controllers\SkillController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -282,13 +288,17 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\LeaveVM.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\MandateVM.cs" />
+    <Compile Include="Models\ProjectVM.cs" />
     <Compile Include="Models\ResourceVM.cs" />
     <Compile Include="Models\ResumeVM.cs" />
     <Compile Include="Models\SkillVM.cs" />
+    <Compile Include="Models\UserVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\animate.css" />
     <Content Include="Content\Back\css\style.css" />
     <Content Include="Content\Back\images\admin.jpg" />
     <Content Include="Content\Back\images\avatar\1.jpg" />
@@ -315,6 +325,29 @@
     <Content Include="Content\Back\js\widgets.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Login\animate.css" />
+    <Content Include="Content\Login\bootstrap.min.css" />
+    <Content Include="Content\Login\bootstrap.min.js" />
+    <Content Include="Content\Login\font-awesome.min.css" />
+    <Content Include="Content\Login\jquery-1.12.4.min.js" />
+    <Content Include="Content\Login\jquery-price-slider.js" />
+    <Content Include="Content\Login\jquery.mCustomScrollbar.min.css" />
+    <Content Include="Content\Login\jquery.scrollUp.min.js" />
+    <Content Include="Content\Login\login-action.js" />
+    <Content Include="Content\Login\main.css" />
+    <Content Include="Content\Login\main.js" />
+    <Content Include="Content\Login\modernizr-2.8.3.min.js" />
+    <Content Include="Content\Login\normalize.css" />
+    <Content Include="Content\Login\notika-custom-icon.css" />
+    <Content Include="Content\Login\owl.carousel.css" />
+    <Content Include="Content\Login\owl.carousel.min.js" />
+    <Content Include="Content\Login\owl.theme.css" />
+    <Content Include="Content\Login\owl.transitions.css" />
+    <Content Include="Content\Login\plugins.js" />
+    <Content Include="Content\Login\responsive.css" />
+    <Content Include="Content\Login\style.css" />
+    <Content Include="Content\Login\waves.min.css" />
+    <Content Include="Content\Login\wow.min.js" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -431,6 +464,7 @@
     <Content Include="Views\Resource\Details.cshtml" />
     <Content Include="Views\Holiday\Create.cshtml" />
     <Content Include="Views\Holiday\Index.cshtml" />
+    <Content Include="Views\User\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
