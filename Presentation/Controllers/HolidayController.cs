@@ -32,6 +32,12 @@ namespace Presentation.Controllers
             {
                 holiday.startDateEasy = holiday.startDate.ToString("dd/MM/yyyy");
                 holiday.endDateEasy = holiday.endDate.ToString("dd/MM/yyyy");
+                for (var dt = holiday.startDate; dt <= holiday.endDate; dt = dt.AddDays(1))
+                {
+                    holiday.calendrier.SelectedDate = dt;
+                }
+                holiday.calendrier.SelectionMode = CalendarSelectionMode.None;
+
             }
             
             return View(liste);

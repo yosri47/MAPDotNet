@@ -20,6 +20,12 @@ namespace Presentation.Models
         public String startDateEasy { get; set; }
         public String endDateEasy { get; set; }
         [DataType(DataType.Date)]
-        public DateTime calendar;
+
+        public Calendar calendrier { get; set; }
+        
+        public HolidayVM()
+        {
+            calendrier = new Calendar();
+        }
     }
 }
