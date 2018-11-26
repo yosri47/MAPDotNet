@@ -1,45 +1,43 @@
-﻿
-@{
-    ViewBag.Title = "Index";
-}
-<h2>Index</h2>
+﻿<link href="~/Content/skillsStylesheet.css" type="text/css" rel="stylesheet" />
+<section id="browseCategories" class="PageJob-browse">
+    <div class="col-md-4 text-center">
+        <form action="@Url.Action("Create", "Skill")">
+            <button class="col-md-3 btn btn-success" type="submit">New Skill</button>
+        </form>
+     </div>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            SkillId
-        </th>
-        <th>
-            Category
-        </th>
-        <th>
-            Name
-        </th>
-        <th></th>
-    </tr>
+        <div class="Container">
+            <h2 class="PageJob-title">
+                Browse all Skills
+            </h2>
+            @foreach (var cat in ViewBag.categories)
+            {
+                <header class="PageJob-category-heading Grid">
+                    <div class="Grid-col Grid-col--tablet-7 Grid-col--desktopSmall-8">
+                        <h3 class="PageJob-category-title">
+                            @cat
+                        </h3>
+                    </div>
+                </header>
+                <ul class="PageJob-browse-list Grid">
+                    @foreach (var item in ViewBag.result)
+                    {
+                        if (item.category == cat)
+                        {
+                            <li class="Grid-col Grid-col--6 Grid-col--tablet-4 Grid-col--desktopSmall-3" data-job-category-item="@item.name">
+                                <a href="@Url.Action("Delete", "Skill", new { id=item.skillId})"><i class="fa fa-trash" style="width:10px;height:10px;"></i></a>
+                                &nbsp;<a class="PageJob-category-link" href="@Url.Action("SelectBySkill", "Resource", new { skillId=item.skillId})">
+                                    @item.name &nbsp;(@item.count)
+                                </a>
+                                
+                            </li>
+                        }
+                    }
+                </ul>
+                <br />
+            }
+        </div>
+</section>
 
-    @foreach (var item in ViewBag.result)
-    {
-        <tr>
-            <td>
-                @item.skillId
-            </td>
-            <td>
-                @item.category
-            </td>
-            <td>
-                @item.name
-            </td>
-            <td>
-                @Html.ActionLink("Details", "Details", new { id=item.skillId}) |
-                @Html.ActionLink("Delete", "Delete", new { id=item.skillId })
-            </td>
-        </tr>
-    }
-
-</table>
 
 

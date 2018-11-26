@@ -16,9 +16,11 @@ namespace Presentation.Controllers
     public class SkillController : Controller
     {
         ISkillService skillService;
+        IResourceService rs;
         public SkillController()
         {
             skillService = new SkillService();
+            rs = new ResourceService();
         }
 
         // GET: Skill
@@ -27,6 +29,8 @@ namespace Presentation.Controllers
             HttpClient Client = new HttpClient();
             Client.BaseAddress = new Uri("http://localhost:18080");
             Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            HttpResponseMessage response;
+            /*
             HttpResponseMessage response = Client.GetAsync("map-web/rest/skills").Result;
             if(response.IsSuccessStatusCode)
             {
@@ -36,6 +40,35 @@ namespace Presentation.Controllers
             {
                 ViewBag.result = "error";
             }
+            return View();
+            */
+            var categories = skillService.GetMany().Select(c => c.category).Distinct();
+            List<SkillVM> skills = new List<SkillVM>();
+            IEnumerable<SkillVM> resourceSkills;
+            var skillstocast = skillService.GetMany();
+            foreach (var s in skillstocast)
+            {
+                skills.Add(new SkillVM { category=s.category,name=s.name,skillId=s.skillId,count=0});
+            }
+            var resources = rs.GetMany().Where(r => r.resumeId > 0);
+            foreach (var resource in resources)
+            {
+                response = Client.GetAsync("map-web/rest/resources/skills/" +resource.userId).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    resourceSkills = response.Content.ReadAsAsync<IEnumerable<SkillVM>>().Result;
+                    foreach (var s in skills)
+                    {
+                        if (resourceSkills.Contains(resourceSkills.Where(r=>r.skillId == s.skillId).FirstOrDefault()))
+                        {
+                            s.count += 1;
+                        }
+                    }
+                }
+            }
+            ViewBag.result = skills;
+            ViewBag.categories = categories;
+
             return View();
 
         }
@@ -49,6 +82,8 @@ namespace Presentation.Controllers
         // GET: Skill/Create
         public ActionResult Create()
         {
+            IEnumerable<String> categories = skillService.GetMany().Select(c => c.category).Distinct();
+            ViewBag.result = categories;
             return View("Create");
         }
 
@@ -85,10 +120,8 @@ namespace Presentation.Controllers
         // GET: Skill/Delete/5
         public ActionResult Delete(int id)
         {
-            HttpClient Client = new HttpClient();
-            Client.BaseAddress = new Uri("http://localhost:18080");
-            Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            HttpResponseMessage response = Client.GetAsync("map-web/rest/skills/"+id).Result;
+            skillService.Delete(s => s.skillId == id);
+            skillService.Commit();
             return RedirectToAction("Index");
         }
 

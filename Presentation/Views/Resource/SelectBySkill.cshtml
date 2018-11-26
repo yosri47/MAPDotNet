@@ -1,0 +1,76 @@
+﻿<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<link href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.bootstrap.min.css" rel="stylesheet" />
+<script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap4.min.js "></script>
+@{
+    ViewBag.Title = "Resources";
+}
+<script>
+
+        $(document).ready(function () {
+            $("#demoGrid").DataTable({
+
+                "processing": true, // for show progress bar
+                "serverSide": true, // for process server side
+                "filter": true, // this is for disable filter (search box)
+                "orderMulti": false, // for disable multiple column at once
+                "pageLength": 5,
+
+                "ajax": {
+                    "url": "/Resource/LoadDataSkill/@ViewBag.result",
+                    "type": "POST",
+                    "datatype": "json"
+                },
+
+                "columnDefs":
+                [{
+                    "targets": [0],
+                    "visible": false,
+                    "searchable": false
+                },
+                {
+                    "targets": [1],
+                    "visible": true,
+                    "searchable":false
+                }
+                ],
+
+                "columns": [
+                      { "data": "userId", "name": "userId", "autoWidth": true },
+                      {
+                          "data": "photo",
+                          "render": function (file_id) {
+                              return file_id ?
+                                  '<img width="50px" height="50px" src="../Content/Upload/Pictures/' + file_id + '"/>' :
+                                  null;
+                          },
+                          "defaultContent": "No image",
+                          "title": "Photo",
+                          "height" : "60px",
+                          "width": "60px"
+                      },
+                      { "data": "name", "name": "name", "autoWidth": true },
+                      { "data": "availability", "title": "availability", "name": "availability", "autoWidth": true },
+                      { "data": "rate", "name": "rate", "autoWidth": true }
+                ]
+
+            });
+        });
+</script>
+<div class="container">
+    <br />
+    <div style="width:90%; margin:0 auto;">
+        <table id="demoGrid" class="table table-striped table-bordered dt-responsive nowrap" width="100%" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>userId</th>
+                    <th>photo</th>
+                    <th>name</th>
+                    <th>availability</th>
+                    <th>rate</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>

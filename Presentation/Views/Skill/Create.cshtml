@@ -15,16 +15,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.category, htmlAttributes: new { @class = "control-label col-md-2" })<br/>
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.category,new SelectList(
-                new List<String>
-                {
-                    "Websites, IT & Software",
-                    "Design, Media & Architecture",
-                    "Engineering & Science","Aeronautical Engineering",
-                    "Sales & Marketing",
-                    "Business, Accounting, Human Resources & Legal"
-                }
-               ))
+                @Html.DropDownListFor(model => model.category,new SelectList(ViewBag.result))
             </div>
         </div>
         <br />
@@ -36,13 +27,14 @@
                 @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
             </div>
         </div>
-        
+        <br/>
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Create" class="btn btn-default" />
             </div>
         </div>
     </div>
+    <br/>
 }
 
 <div>
