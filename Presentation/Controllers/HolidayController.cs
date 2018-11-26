@@ -1,5 +1,11 @@
-﻿using Domain.Entities;
+﻿using DHTMLX.Common;
+using DHTMLX.Scheduler;
+using DHTMLX.Scheduler.Controls;
+using DHTMLX.Scheduler.Data;
+using Domain.Entities;
 using Presentation.Models;
+using Service.IServices;
+using Service.Services;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -12,102 +18,83 @@ namespace Presentation.Controllers
     public class HolidayController : Controller
     {
         // GET: Holiday
+        IHolidayService hs;
+        List<HolidayVM> liste;
+        public HolidayController()
+        {
+            hs = new HolidayService();
+        }
         public ActionResult Index()
         {
+            var scheduler = new DHXScheduler(this);
+            scheduler.Skin = DHXScheduler.Skins.Flat;
+            scheduler.InitialValues.Add("text", "Holiday");
+            scheduler.Config.first_hour = 0;
+            scheduler.Config.last_hour = 23;
+            scheduler.EnableDynamicLoading(SchedulerDataLoader.DynamicalLoadingMode.Year);
+            scheduler.Views.Clear();
+            var year = new YearView();
+            scheduler.Views.Add(year);
+            scheduler.InitialView = year.Name;
+            scheduler.LoadData = true;
+            scheduler.EnableDataprocessor = true;
+            ViewBag.calendrier = scheduler;
+
+            return View(scheduler);
+        }
+        public ContentResult Data()
+        {
+            
             HttpClient Client = new HttpClient();
             Client.BaseAddress = new Uri("http://localhost:18080");
             Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             HttpResponseMessage response = Client.GetAsync("map-web/rest/holidays").Result;
-            IEnumerable<HolidayVM> liste;
             if (response.IsSuccessStatusCode)
             {
-                liste = response.Content.ReadAsAsync<IEnumerable<HolidayVM>>().Result;
+                liste = response.Content.ReadAsAsync<List<HolidayVM>>().Result;
             }
-            else
+            return new SchedulerAjaxData(liste);
+        }
+
+        public ActionResult Save(int? id, FormCollection actionValues)
+        {
+
+            var action = new DataAction(actionValues);
+            try
             {
-                liste = null;
-            }
-            //calendar view
-            foreach (var holiday in liste)
-            {
-                holiday.startDateEasy = holiday.startDate.ToString("dd/MM/yyyy");
-                holiday.endDateEasy = holiday.endDate.ToString("dd/MM/yyyy");
-                for (var dt = holiday.startDate; dt <= holiday.endDate; dt = dt.AddDays(1))
+                var changedEvent = DHXEventsHelper.Bind<HolidayVM>(actionValues);
+                holiday h = new holiday { holidayId = changedEvent.holidayId,
+                    startDate = changedEvent.startDate, endDate = changedEvent.endDate, name = changedEvent.name };
+                switch (action.Type)
                 {
-                    holiday.calendrier.SelectedDate = dt;
+
+                    case DataActionTypes.Insert:
+                        hs.Add(h);
+                        hs.Commit();
+                        break;
+                    case DataActionTypes.Delete:
+                        hs.Delete(holiday => holiday.holidayId == changedEvent.holidayId);
+                        hs.Commit();
+                        break;
+                    case DataActionTypes.Update:
+                        hs.Update(h);
+                        hs.Commit();
+                        break;
+                    default:
+                        break;
                 }
-                holiday.calendrier.SelectionMode = CalendarSelectionMode.None;
-
+                action.TargetId = changedEvent.holidayId;
             }
-            
-            return View(liste);
-        }
-
-        // GET: Holiday/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: Holiday/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Holiday/Create
-        [HttpPost]
-        public ActionResult Create(HolidayVM hol)
-        {
-            holiday holiday = new holiday { startDate = hol.startDate.Date, endDate = hol.endDate.Date, name = hol.name };
-            HttpClient Client = new HttpClient();
-            Client.BaseAddress = new Uri("http://localhost:18080");
-            Client.PostAsJsonAsync<holiday>("map-web/rest/holidays", holiday).ContinueWith((postTask) => postTask.Result.EnsureSuccessStatusCode());
-            return RedirectToAction("Index");
-        }
-
-        // GET: Holiday/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: Holiday/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
+            catch (Exception a)
             {
-                // TODO: Add update logic here
+                action.Type = DataActionTypes.Error;
+            }
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            return (new AjaxSaveResponse(action));
         }
-
-        // GET: Holiday/Delete/5
-        public ActionResult Delete(int id)
+        protected override void Dispose(bool disposing)
         {
-            return View();
         }
 
-        // POST: Holiday/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
     }
 }

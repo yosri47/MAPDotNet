@@ -1,4 +1,4 @@
-/* This css file is to over write bootstrap css
+﻿/* This css file is to over write bootstrap css
 --------------------------------------------------------- /
 * Theme Name: Sufee-Admin Admin Template
 * Theme URI: http://demos.jeweltheme.com/Sufee-Admin/
@@ -2309,6 +2309,11 @@ header .form-inline {
   left: inherit !important;
   right: 0 !important;
   top: 93% !important; }
+.scheduler_container{
+    width:100%;
+    height:600px;
+    border:1px solid #aeaeae;
+}
 
 .dataTables_paginate .pagination {
   border-radius: 0; }

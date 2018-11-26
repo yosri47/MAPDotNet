@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Service.IServices
 {
-    interface IProjectService : IService<project>
+    public interface IProjectService : IService<project>
     {
     }
 }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Service.IServices
 {
-    interface IMandateService: IService<mandate>
+    public interface IMandateService: IService<mandate>
     {
     }
 }

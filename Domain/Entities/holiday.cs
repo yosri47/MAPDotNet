@@ -12,12 +12,12 @@ namespace Domain.Entities
         public int holidayId { get; set; }
 
         [Column(TypeName = "date")]
-        public DateTime? endDate { get; set; }
+        public DateTime endDate { get; set; }
 
         [StringLength(255)]
         public string name { get; set; }
 
         [Column(TypeName = "date")]
-        public DateTime? startDate { get; set; }
+        public DateTime startDate { get; set; }
     }
 }

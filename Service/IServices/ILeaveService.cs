@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Service.IServices
 {
-    interface ILeaveService: IService<_break>
+    public interface ILeaveService: IService<_break>
     {
     }
 }

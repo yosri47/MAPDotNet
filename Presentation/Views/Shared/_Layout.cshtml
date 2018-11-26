@@ -20,6 +20,8 @@
     <link rel="stylesheet" href="~/Content/Back/vendors/selectFX/css/cs-skin-elastic.css">
     <link rel="stylesheet" href="~/Content/Back/vendors/jqvmap/dist/jqvmap.min.css">
     <link rel="stylesheet" href="~/Content/Back/css/style.css">
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
 </head>
 <body>
@@ -73,12 +75,8 @@
                     <li>
                         <a href="~/Skill/Index"> <i class="menu-icon ti-email"></i> Skills </a>
                     </li>
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-bar-chart"></i>Holidays</a>
-                        <ul class="sub-menu children dropdown-menu">
-                            <li><i class="menu-icon fa fa-pie-chart"></i><a href="~/Holiday/Create">Add Holiday</a></li>
-                            <li><i class="menu-icon fa fa-line-chart"></i><a href="~/Holiday/Index">View Holidays</a></li>
-                        </ul>
+                    <li>
+                        <a href="~/Holiday/Index"> <i class="menu-icon ti-email"></i> Holidays </a>
                     </li>
 
                     <h3 class="menu-title">Icons</h3><!-- /.menu-title -->
@@ -251,23 +249,8 @@
         <script src="~/Content/Back/vendors/jqvmap/dist/jquery.vmap.min.js"></script>
         <script src="~/Content/Back/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
         <script src="~/Content/Back/vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>
-        <script>
-        (function($) {
-            "use strict";
-
-            jQuery('#vmap').vectorMap({
-                map: 'world_en',
-                backgroundColor: null,
-                color: '#ffffff',
-                hoverOpacity: 0.7,
-                selectedColor: '#1de9b6',
-                enableZoom: true,
-                showTooltip: true,
-                values: sample_data,
-                scaleColors: ['#1de9b6', '#03a9f5'],
-                normalizeFunction: 'polynomial'
-            });
-        })(jQuery);
-        </script>
+        <script src="~/Scripts/bootstrap.min.js"></script>
+        
+        
 </body>
 </html>

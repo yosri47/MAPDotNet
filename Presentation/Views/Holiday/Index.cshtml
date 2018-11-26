@@ -1,12 +1,9 @@
-﻿@model IEnumerable<Presentation.Models.HolidayVM>
-
-@{
-    ViewBag.Title = "Index";
+﻿@{
+    ViewBag.Title = "DHTMLX Scheduler .NET";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-    @Html.Partial("_CalendarPartial")
+<h2>Holidays Calendar</h2>
+<div class="scheduler_container">
+    @Html.Raw(Model.Render())
+</div>
