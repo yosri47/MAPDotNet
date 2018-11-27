@@ -15,7 +15,7 @@
                 "serverSide": true, // for process server side
                 "filter": true, // this is for disable filter (search box)
                 "orderMulti": false, // for disable multiple column at once
-                "pageLength": 5,
+                "pageLength": 10,
 
                 "ajax": {
                     "url": "/Resource/LoadData",
@@ -32,7 +32,13 @@
                 {
                     "targets": [1],
                     "visible": true,
-                    "searchable":false
+                    "searchable": false,
+                    "orderable": false
+                },
+                {  
+                    "targets": [5],  
+                    "searchable": false,  
+                    "orderable": false  
                 }
                 ],
 
@@ -52,7 +58,12 @@
                       },
                       { "data": "name", "name": "name", "autoWidth": true },
                       { "data": "availability", "title": "availability", "name": "availability", "autoWidth": true },
-                      { "data": "rate", "name": "rate", "autoWidth": true }
+                      { "data": "rate", "name": "rate", "autoWidth": true },
+                      {
+                          data: null, render: function (data, type, row) {
+                              return "<a href='#' class='btn btn-danger' onclick=DeleteData(" + row.userId + "); >Delete</a>";
+                          }
+                      }
                 ]
 
             });
@@ -69,6 +80,7 @@
                         <th>name</th>
                         <th>availability</th>
                         <th>rate</th>
+                        <th>delete</th>
                     </tr>
                 </thead>
             </table>

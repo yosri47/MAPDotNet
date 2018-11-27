@@ -136,10 +136,10 @@ namespace Presentation.Controllers
         // GET: Resource/Delete/5
         public ActionResult Delete(int id)
         {
-            HttpClient Client = new HttpClient();
-            Client.BaseAddress = new Uri("http://localhost:18080");
-            Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            HttpResponseMessage response = Client.GetAsync("map-web/rest/resoures/remove?id=" + id).Result;
+            ressource r = rs.GetById(id);
+            r.availability = "Former Employee";
+            rs.Update(r);
+            rs.Commit();
             return RedirectToAction("Index");
         }
 
@@ -176,7 +176,7 @@ namespace Presentation.Controllers
                 int recordsTotal = 0;
 
                 // Getting all Customer data  
-                var listres = rs.GetMany();
+                var listres = rs.GetMany().Where(r => !r.availability.Equals("Former Employee"));
                 var res = new List<ResourceVM>();
                 foreach (ressource r in listres)
                 {
@@ -205,14 +205,25 @@ namespace Presentation.Controllers
                 //Sorting    
                 if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDir)))
                 {
-                    customerData = customerData.OrderBy(h => sortColumn + " " + sortColumnDir);
+                    if(sortColumn.Equals("name"))
+                    {
+                        customerData = sortColumnDir.Equals("asc") ? customerData.OrderBy(c => c.name) : customerData.OrderByDescending(c => c.name);
+                    }else if (sortColumn.Equals("availability"))
+                    {
+                        customerData = sortColumnDir.Equals("asc") ? customerData.OrderBy(c => c.availability) : customerData.OrderByDescending(c => c.availability);
+                    }else if(sortColumn.Equals("rate"))
+                    {
+                        customerData = sortColumnDir.Equals("asc") ? customerData.OrderBy(c => c.rate) : customerData.OrderByDescending(c => c.rate);
+                    }
+                    System.Diagnostics.Debug.WriteLine("Sort Column: "+sortColumn+" SortDir: "+sortColumnDir);
+                    System.Diagnostics.Debug.WriteLine(customerData.ToArray());
+
                 }
                 //Search    
                 if (!string.IsNullOrEmpty(searchValue))
                 {
-                    customerData = customerData.Where(m => m.name == searchValue);
+                    customerData = customerData.Where(m => m.name.ToLower().Contains(searchValue.ToLower()));
                 }
-
                 //total number of rows count     
                 recordsTotal = customerData.Count();
                 //Paging     
@@ -257,7 +268,7 @@ namespace Presentation.Controllers
                 Client.BaseAddress = new Uri("http://localhost:18080");
                 Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 HttpResponseMessage response;
-                var listres = rs.GetMany();
+                var listres = rs.GetMany().Where(r => !r.availability.Equals("Former Employee"));
                 var res = new List<ResourceVM>();
                 IEnumerable<SkillVM> skills;
                 foreach (ressource r in listres)
@@ -295,7 +306,21 @@ namespace Presentation.Controllers
                 //Sorting    
                 if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDir)))
                 {
-                    customerData = customerData.OrderBy(h => sortColumn + " " + sortColumnDir);
+                    if (sortColumn.Equals("name"))
+                    {
+                        customerData = sortColumnDir.Equals("asc") ? customerData.OrderBy(c => c.name) : customerData.OrderByDescending(c => c.name);
+                    }
+                    else if (sortColumn.Equals("availability"))
+                    {
+                        customerData = sortColumnDir.Equals("asc") ? customerData.OrderBy(c => c.availability) : customerData.OrderByDescending(c => c.availability);
+                    }
+                    else if (sortColumn.Equals("rate"))
+                    {
+                        customerData = sortColumnDir.Equals("asc") ? customerData.OrderBy(c => c.rate) : customerData.OrderByDescending(c => c.rate);
+                    }
+                    System.Diagnostics.Debug.WriteLine("Sort Column: " + sortColumn + " SortDir: " + sortColumnDir);
+                    System.Diagnostics.Debug.WriteLine(customerData.ToArray());
+
                 }
                 //Search    
                 if (!string.IsNullOrEmpty(searchValue))
@@ -317,6 +342,16 @@ namespace Presentation.Controllers
             }
 
         }
+        [HttpPost]
+        public JsonResult DeleteCustomer(int ID)
+        {
+            ressource r = rs.GetById(ID);
+            r.availability = "Former Employee";
+            rs.Update(r);
+            rs.Commit();
+            return Json(data: "Deleted", behavior: JsonRequestBehavior.AllowGet);
+        }
     }
 }
+
 
