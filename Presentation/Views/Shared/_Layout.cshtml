@@ -36,6 +36,8 @@
                 <a class="navbar-brand" href="./"><img src="~/Content/Back/images/logo.png" alt="Logo"></a>
                 <a class="navbar-brand hidden" href="./"><img src="~/Content/Back/images/logo2.png" alt="Logo"></a>
             </div>
+@if (HttpContext.Current.Session["userType"].ToString().Equals("Administrator"))
+{
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li class="active">
@@ -69,7 +71,7 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-bar-chart"></i>Resources</a>
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="menu-icon fa fa-line-chart"></i><a href="~/Resource/Index">Manage resources</a></li>
-                            <li><i class="menu-icon fa fa-pie-chart"></i><a href="~/Resume/Index">Manage resumes</a></li>
+                            <li><i class="menu-icon fa fa-pie-chart"></i><a href="~/Resource/Ranking">View Ranking</a></li>
                         </ul>
                     </li>
                     <li>
@@ -84,7 +86,7 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>Icons</a>
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="menu-icon fa fa-fort-awesome"></i><a href="font-fontawesome.html">Font Awesome</a></li>
-                            <li><i class="menu-icon ti-themify-logo"></i><a href="font-themify.html">Themefy Icons</a></li>
+                            <li><i class="menu-icons ti-themify-logo"></i><a href="font-themify.html">Themefy Icons</a></li>
                         </ul>
                     </li>
                     <li>
@@ -116,6 +118,80 @@
                     </li>
                 </ul>
             </div><!-- /.navbar-collapse -->
+}
+else if (HttpContext.Current.Session["userType"].ToString().Equals("Client"))
+{
+    <div id="main-menu" class="main-menu collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+            <li class="active">
+                <a href="index.html"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
+            </li>
+            <h3 class="menu-title">UI elements</h3><!-- /.menu-title -->
+            <li class="menu-item-has-children dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-bar-chart"></i>Resources</a>
+                <ul class="sub-menu children dropdown-menu">
+                    <li><i class="menu-icon fa fa-line-chart"></i><a href="~/Resource/Index">Manage resources</a></li>
+                    <li><i class="menu-icon fa fa-pie-chart"></i><a href="~/Resource/Ranking">View Ranking</a></li>
+                </ul>
+            </li>
+
+            <h3 class="menu-title">Icons</h3><!-- /.menu-title -->
+            <li class="menu-item-has-children dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>Icons</a>
+                <ul class="sub-menu children dropdown-menu">
+                    <li><i class="menu-icon fa fa-fort-awesome"></i><a href="font-fontawesome.html">Font Awesome</a></li>
+                    <li><i class="menu-icons ti-themify-logo"></i><a href="font-themify.html">Themefy Icons</a></li>
+                </ul>
+            </li>
+            <h3 class="menu-title">Extras</h3><!-- /.menu-title -->
+            <li class="menu-item-has-children dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-glass"></i>Pages</a>
+                <ul class="sub-menu children dropdown-menu">
+                    <li><i class="menu-icon fa fa-sign-in"></i><a href="page-login.html">Login</a></li>
+                    <li><i class="menu-icon fa fa-sign-in"></i><a href="page-register.html">Register</a></li>
+                    <li><i class="menu-icon fa fa-paper-plane"></i><a href="pages-forget.html">Forget Pass</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div><!-- /.navbar-collapse -->
+
+}
+else if (HttpContext.Current.Session["userType"].ToString().Equals("Resource"))
+{
+    <div id="main-menu" class="main-menu collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+            <li class="active">
+                <a href="index.html"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
+            </li>
+            <h3 class="menu-title">user</h3><!-- /.menu-title -->
+            <li class="menu-item-has-children dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-bar-chart"></i>Resources</a>
+                <ul class="sub-menu children dropdown-menu">
+                    <li><i class="menu-icon fa fa-line-chart"></i><a href="~/Resource/Index">Manage resources</a></li>
+                    <li><i class="menu-icon fa fa-pie-chart"></i><a href="~/Resource/Ranking">View Ranking</a></li>
+                </ul>
+            </li>
+
+            <h3 class="menu-title">USER</h3><!-- /.menu-title -->
+            <li class="menu-item-has-children dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>Icons</a>
+                <ul class="sub-menu children dropdown-menu">
+                    <li><i class="menu-icon fa fa-fort-awesome"></i><a href="font-fontawesome.html">Font Awesome</a></li>
+                    <li><i class="menu-icons ti-themify-logo"></i><a href="font-themify.html">Themefy Icons</a></li>
+                </ul>
+            </li>
+            <h3 class="menu-title">USER</h3><!-- /.menu-title -->
+            <li class="menu-item-has-children dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-glass"></i>Pages</a>
+                <ul class="sub-menu children dropdown-menu">
+                    <li><i class="menu-icon fa fa-sign-in"></i><a href="page-login.html">Login</a></li>
+                    <li><i class="menu-icon fa fa-sign-in"></i><a href="page-register.html">Register</a></li>
+                    <li><i class="menu-icon fa fa-paper-plane"></i><a href="pages-forget.html">Forget Pass</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div><!-- /.navbar-collapse -->
+}
         </nav>
     </aside><!-- /#left-panel -->
     <!-- Left Panel -->
@@ -209,7 +285,7 @@
                             <a class="nav-link" href="#"><i class="fa fa-user"></i> My Profile</a>
                             <a class="nav-link" href="#"><i class="fa fa-user"></i> Notifications <span class="count">13</span></a>
                             <a class="nav-link" href="#"><i class="fa fa-cog"></i> Settings</a>
-                            <a class="nav-link" href="#"><i class="fa fa-power-off"></i> Logout</a>
+                            <a class="nav-link" href="@Url.Action("Login", "User")"><i class="fa fa-power-off"></i> Logout</a>
                         </div>
                     </div>
                     <div class="language-select dropdown" id="language-select">
