@@ -30,6 +30,7 @@ namespace Presentation.Controllers
             client.BaseAddress = new Uri("http://localhost:18080");
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             HttpResponseMessage response = client.GetAsync("map-web/rest/mes/recu?idrecu=5").Result;
+            //test
             if (response.IsSuccessStatusCode)
             {
 
