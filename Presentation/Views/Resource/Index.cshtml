@@ -6,6 +6,11 @@
 @{
     ViewBag.Title = "Index";
 }
+<div class="col-md-4 text-center">
+    <form action="@Url.Action("Create", "Resource")">
+        <button class="col-md-6 btn btn-success" type="submit">New Resource</button>
+    </form>
+</div>
  <script>
 
         $(document).ready(function () {

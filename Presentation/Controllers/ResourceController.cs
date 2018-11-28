@@ -26,18 +26,19 @@ namespace Presentation.Controllers
         // GET: Resource
         public ActionResult Index()
         {
+            rs.updateAvailability();
             return View();
         }
 
         // GET: Resource/Details/5
         public ActionResult Details(int id)
         {
+            //rs.updateAvailability();
             var r = rs.GetById(id);
             ResourceVM res = new ResourceVM
             {
                 availability = r.availability,
                 contractType = r.contractType,
-                isActive = r.isActive ?? true,
                 isOnLeave = r.isOnLeave ?? false,
                 note = r.note,
                 rate = r.rate,
@@ -45,19 +46,24 @@ namespace Presentation.Controllers
                 userId = id,
                 sector = r.sector,
                 seniority = r.seniority,
-                leaveId = r.leaveId ?? 0,
-                projectId = r.projectId ?? 0,
-                mandateId = r.mandateId ?? 0,
                 name = rs.getNameFromId(r.userId),
-                resumeId = r.resumeId ?? 0
             };
+            
             res.name = rs.getNameFromId(res.userId);
-            if (res.leaveId != 0) { res.leave = rs.getLeave(res.leaveId); }
-            if (res.resumeId != 0) { res.resume = rs.getResume(res.resumeId); }
-            if (res.mandateId != 0) { res.mandate = rs.getMandate(res.mandateId); }
-            if (res.projectId != 0) { res.project = rs.getProject(res.projectId); }
             ViewBag.result = res;
-            return View();
+            HttpClient Client = new HttpClient();
+            Client.BaseAddress = new Uri("http://localhost:18080");
+            Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            HttpResponseMessage response = Client.GetAsync("map-web/rest/resources/skills/" + res.userId).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                res.skills = response.Content.ReadAsAsync<IEnumerable<skill>>().Result.ToList();
+            }else
+            {
+                res.skills = new List<skill>();
+            }
+            ViewBag.skills = res.skills;
+                return View();
         }
 
         // GET: Resource/Create
@@ -184,7 +190,6 @@ namespace Presentation.Controllers
                     {
                         availability = r.availability,
                         contractType = r.contractType,
-                        isActive = r.isActive ?? true,
                         isOnLeave = r.isOnLeave ?? false,
                         note = r.note,
                         rate = r.rate,
@@ -192,11 +197,7 @@ namespace Presentation.Controllers
                         userId = r.userId,
                         sector = r.sector,
                         seniority = r.seniority,
-                        leaveId = r.leaveId ?? 0,
-                        projectId = r.projectId ?? 0,
-                        mandateId = r.mandateId ?? 0,
                         name = rs.getNameFromId(r.userId),
-                        resumeId = r.resumeId ?? 0
                     });
                 }
 
@@ -283,7 +284,6 @@ namespace Presentation.Controllers
                             {
                                 availability = r.availability,
                                 contractType = r.contractType,
-                                isActive = r.isActive ?? true,
                                 isOnLeave = r.isOnLeave ?? false,
                                 note = r.note,
                                 rate = r.rate,
@@ -291,11 +291,7 @@ namespace Presentation.Controllers
                                 userId = r.userId,
                                 sector = r.sector,
                                 seniority = r.seniority,
-                                leaveId = r.leaveId ?? 0,
-                                projectId = r.projectId ?? 0,
-                                mandateId = r.mandateId ?? 0,
                                 name = rs.getNameFromId(r.userId),
-                                resumeId = r.resumeId ?? 0
                             });
                         }
                     }

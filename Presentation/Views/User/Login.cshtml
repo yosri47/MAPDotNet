@@ -71,6 +71,7 @@
                     <form accept-charset="UTF-8" role="form">
                         <div class="input-group">
                             <span class="input-group-addon nk-ic-st-pro"><i class="notika-icon notika-support"></i></span>
+                            Login:
                             <div class="nk-int-st">
                                 @Html.EditorFor(model => model.emailAddress, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.emailAddress, "", new { @class = "text-danger" })
@@ -78,6 +79,7 @@
                         </div>
                         <div class="input-group mg-t-15">
                             <span class="input-group-addon nk-ic-st-pro"><i class="notika-icon notika-edit"></i></span>
+                            Password:
                             <div class="nk-int-st">
                                 @Html.EditorFor(model => model.password, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })

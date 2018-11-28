@@ -43,6 +43,8 @@ namespace Presentation.Models
         public int projectId { get; set; }
         public project project { get; set; }
 
+        public List<skill> skills { get; set; }
+
 
     }
 }

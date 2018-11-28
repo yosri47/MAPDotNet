@@ -67,12 +67,8 @@
                             <li><i class="fa fa-table"></i><a href="tables-data.html">Data Table</a></li>
                         </ul>
                     </li>
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-bar-chart"></i>Resources</a>
-                        <ul class="sub-menu children dropdown-menu">
-                            <li><i class="menu-icon fa fa-line-chart"></i><a href="~/Resource/Index">Manage resources</a></li>
-                            <li><i class="menu-icon fa fa-pie-chart"></i><a href="~/Resource/Ranking">View Ranking</a></li>
-                        </ul>
+                    <li>
+                        <a href="~/Resource/Index"> <i class="menu-icon ti-email"></i> Manage resources </a>
                     </li>
                     <li>
                         <a href="~/Skill/Index"> <i class="menu-icon ti-email"></i> Skills </a>
@@ -164,12 +160,8 @@ else if (HttpContext.Current.Session["userType"].ToString().Equals("Resource"))
                 <a href="index.html"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
             </li>
             <h3 class="menu-title">user</h3><!-- /.menu-title -->
-            <li class="menu-item-has-children dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-bar-chart"></i>Resources</a>
-                <ul class="sub-menu children dropdown-menu">
-                    <li><i class="menu-icon fa fa-line-chart"></i><a href="~/Resource/Index">Manage resources</a></li>
-                    <li><i class="menu-icon fa fa-pie-chart"></i><a href="~/Resource/Ranking">View Ranking</a></li>
-                </ul>
+            <li>
+                <a href="@Url.Action("Details", "Resource", new { id = 7})"> <i class="menu-icon ti-email"></i> Profile </a>
             </li>
 
             <h3 class="menu-title">USER</h3><!-- /.menu-title -->

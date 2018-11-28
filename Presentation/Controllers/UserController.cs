@@ -21,7 +21,6 @@ namespace Presentation.Controllers
         [HttpPost]
         public async System.Threading.Tasks.Task<ActionResult> Login(UserVM user)
         {
-            //var client = new RestClient("http://localhost:18080/map-web/rest/");
             HttpClient client = new HttpClient();
             client.BaseAddress = new Uri("http://localhost:18080/map-web/rest/");
             var request = new RestRequest(Method.POST);
@@ -31,11 +30,7 @@ namespace Presentation.Controllers
                 password = user.password
 
             };
-            /*client.AddHandler("application/json", new JsonDeserializer());
-            request.RequestFormat = DataFormat.Json;
-            request.Resource = "authentication";
-            
-            request.AddJsonBody(obj);*/
+           
             HttpResponseMessage response = await client.PostAsJsonAsync("authentication", obj);
             //response.EnsureSuccessStatusCode();
 

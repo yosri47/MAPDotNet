@@ -22,6 +22,15 @@
             <dd>
                 @ViewBag.result.userId
             </dd>
+            <dt>
+                Skills
+            </dt>
+            @foreach (var item in ViewBag.skills)
+            {
+                <dd>
+                    @item.name
+                </dd>
+            }
 
         </dl>
 

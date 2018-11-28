@@ -16,5 +16,6 @@ namespace Service.IServices
         _break getLeave(int leaveId);
         mandate getMandate(int mandateId);
         resume getResume(int resumeId);
+        void updateAvailability();
     }
 }
