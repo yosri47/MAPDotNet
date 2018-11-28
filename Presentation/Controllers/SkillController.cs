@@ -30,18 +30,6 @@ namespace Presentation.Controllers
             Client.BaseAddress = new Uri("http://localhost:18080");
             Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             HttpResponseMessage response;
-            /*
-            HttpResponseMessage response = Client.GetAsync("map-web/rest/skills").Result;
-            if(response.IsSuccessStatusCode)
-            {
-                ViewBag.result = response.Content.ReadAsAsync<IEnumerable<SkillVM>>().Result;
-            }
-            else
-            {
-                ViewBag.result = "error";
-            }
-            return View();
-            */
             var categories = skillService.GetMany().Select(c => c.category).Distinct();
             List<SkillVM> skills = new List<SkillVM>();
             IEnumerable<SkillVM> resourceSkills;
