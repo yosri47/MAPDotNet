@@ -51,12 +51,13 @@ namespace Presentation.Controllers
         [HttpPost]
         public ActionResult Create(RequestModel res)
         {
-
+            string userid = System.Web.HttpContext.Current.Session["idUser"].ToString();
+            int id = int.Parse(userid);
             HttpClient client = new HttpClient();
             client.BaseAddress = new Uri("http://localhost:18080");
 
 
-            client.PostAsJsonAsync<RequestModel>("map-web/rest/req/add?idcl=3&idad=1", res).ContinueWith((e => e.Result.EnsureSuccessStatusCode()));
+            client.PostAsJsonAsync<RequestModel>("map-web/rest/req/add?idcl="+id+"&idad=1", res).ContinueWith((e => e.Result.EnsureSuccessStatusCode()));
             return RedirectToAction("Create");
         }
 

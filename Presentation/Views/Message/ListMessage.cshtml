@@ -361,16 +361,7 @@ ul.inbox-pagination li {
 <div class="mail-box">
     <aside class="sm-side">
         <div class="user-head">
-            <a class="inbox-avatar" href="javascript:;">
-                <img src=" https//scontent-mxp1-1.xx.fbcdn.net/v/t1.0-9/16999070_1934693356753950_6535075443606353098_n.jpg?oh=2bd32ca00644bae6903f17e3119f5453&oe=59688178" class="nav-settings__member-photo"alt="Nishant kumar" height="60" width="60" width="50"/>
-            </a>
-            <div class="user-name">
-                <h5><a href="#">Nishant kumar</a></h5>
-                <span><a href="#">Nishantuid@outlook.com</a></span>
-            </div>
-            <a class="mail-dropdown pull-right" href="javascript:;">
-                <i class="fa fa-chevron-down"></i>
-            </a>
+            
         </div>
         <div class="inbox-body">
             <a href="#myModal" data-toggle="modal" title="Compose" class="btn btn-compose">
@@ -436,49 +427,16 @@ ul.inbox-pagination li {
         </div>
         <ul class="inbox-nav inbox-divider">
             <li class="active">
-                <a href="#"><i class="fa fa-inbox"></i> Inbox <span class="label label-danger pull-right">2</span></a>
+                <a href="@Url.Action("ListMessage", "Message")"><i class="fa fa-inbox"></i> Inbox <span class="label label-danger pull-right">New message</span></a>
             </li>
             <li>
-                <a href="#"><i class="fa fa-envelope-o"></i> Sent Mail</a>
+                                                               
+
+                <a href="@Url.Action("ListMessageclient", "Message")"><i class="fa fa-envelope-o"></i> Sent Mail</a>
             </li>
-            <li>
-                <a href="#"><i class="fa fa-bookmark-o"></i> Important</a>
-            </li>
-            <li>
-                <a href="#"><i class=" fa fa-external-link"></i> Drafts <span class="label label-info pull-right">30</span></a>
-            </li>
-            <li>
-                <a href="#"><i class=" fa fa-trash-o"></i> Trash</a>
-            </li>
+            
         </ul>
-        <ul class="nav nav-pills nav-stacked labels-info inbox-divider">
-            <li> <h4>Labels</h4> </li>
-            <li> <a href="#"> <i class=" fa fa-sign-blank text-danger"></i> Work </a> </li>
-            <li> <a href="#"> <i class=" fa fa-sign-blank text-success"></i> Design </a> </li>
-            <li>
-                <a href="#"> <i class=" fa fa-sign-blank text-info "></i> Family </a>
-            </li>
-            <li>
-                <a href="#"> <i class=" fa fa-sign-blank text-warning "></i> Friends </a>
-            </li>
-            <li>
-                <a href="#"> <i class=" fa fa-sign-blank text-primary "></i> Office </a>
-            </li>
-        </ul>
-        <ul class="nav nav-pills nav-stacked labels-info ">
-            <li> <h4>Buddy online</h4> </li>
-            <li> <a href="#"> <i class=" fa fa-circle text-success"></i>Nishant Kumar <p>I do not think</p></a>  </li>
-            <li> <a href="#"> <i class=" fa fa-circle text-danger"></i>Dark Coders<p>Busy with coding</p></a> </li>
-            <li>
-                <a href="#"> <i class=" fa fa-circle text-muted "></i>Mentaalist <p>I out of control</p></a>
-            </li>
-            <li>
-                <a href="#"> <i class=" fa fa-circle text-muted "></i>H3s4m<p>I am not here</p></a>
-            </li>
-            <li>
-                <a href="#"> <i class=" fa fa-circle text-muted "></i>Dead man<p>I do not think</p></a>
-            </li>
-        </ul>
+        
         <div class="inbox-body text-center">
             <div class="btn-group">
                 <a class="btn mini btn-primary" href="javascript:;">
@@ -487,7 +445,7 @@ ul.inbox-pagination li {
             </div>
             <div class="btn-group">
                 <a class="btn mini btn-success" href="javascript:;">
-                    <i class="fa fa-phone"></i>
+                    <i class="fa fa-envelope-o"></i>
                 </a>
             </div>
             <div class="btn-group">
@@ -567,16 +525,45 @@ ul.inbox-pagination li {
                   @foreach (var p in ViewBag.result)
 
                   {
+                      if (@p.clsend==null && @p.rssend == null) { 
                       <tr class="unread">
                         <td class="inbox-small-cells">
                             <input type="checkbox" class="mail-checkbox">
                         </td>
                         <td class="inbox-small-cells"><i class="fa fa-star"></i></td>
-                        <td class="view-message  dont-show">@p.clsend.clientAddress</td>
+                         
+                        <td class="view-message  dont-show">Admin</td>
                         <td class="view-message ">@p.content</td>
                         <td class="view-message  inbox-small-cells"><i class="fa fa-paperclip"></i></td>
                         <td class="view-message  text-right">@p.dateSend AM</td>
-                    </tr>
+                    </tr>}
+                    else  if (@p.clsend == null && @p.adminsend == null)
+                      {
+                        <tr class="unread">
+                            <td class="inbox-small-cells">
+                                <input type="checkbox" class="mail-checkbox">
+                            </td>
+                            <td class="inbox-small-cells"><i class="fa fa-star"></i></td>
+
+                            <td class="view-message  dont-show">@p.rssend.clientAddress</td>
+                            <td class="view-message ">@p.content</td>
+                            <td class="view-message  inbox-small-cells"><i class="fa fa-paperclip"></i></td>
+                            <td class="view-message  text-right">@p.dateSend AM</td>
+                        </tr>}
+                      else if (@p.rssend == null && @p.adminsend == null)
+                      {
+                        <tr class="unread">
+                            <td class="inbox-small-cells">
+                                <input type="checkbox" class="mail-checkbox">
+                            </td>
+                            <td class="inbox-small-cells"><i class="fa fa-star"></i></td>
+
+                            <td class="view-message  dont-show">@p.clsend.clientAddress</td>
+                            <td class="view-message ">@p.content</td>
+                            <td class="view-message  inbox-small-cells"><i class="fa fa-paperclip"></i></td>
+                            <td class="view-message  text-right">@p.dateSend AM</td>
+                        </tr>}
+
                   }
 
                 </tbody>

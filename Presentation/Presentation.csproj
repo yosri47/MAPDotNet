@@ -781,6 +781,8 @@
     <Content Include="Views\Sweet\Alert.cshtml" />
     <Content Include="Views\Shared\_LayoutUser.cshtml" />
     <Content Include="Views\Shared\_LayoutResource.cshtml" />
+    <Content Include="Views\Request\Index.cshtml" />
+    <Content Include="Views\Message\ListMessageclient.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
