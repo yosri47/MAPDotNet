@@ -64,6 +64,7 @@
     <Compile Include="IServices\IHolidayService.cs" />
     <Compile Include="IServices\ILeaveService.cs" />
     <Compile Include="IServices\IMandateService.cs" />
+    <Compile Include="IServices\ImessageService.cs" />
     <Compile Include="IServices\IProjectService.cs" />
     <Compile Include="IServices\IResourceService.cs" />
     <Compile Include="IServices\IResumeService.cs" />
@@ -73,6 +74,7 @@
     <Compile Include="Services\HolidayService.cs" />
     <Compile Include="Services\LeaveService.cs" />
     <Compile Include="Services\MandateService.cs" />
+    <Compile Include="Services\MessageService.cs" />
     <Compile Include="Services\ProjectService.cs" />
     <Compile Include="Services\ResourceService.cs" />
     <Compile Include="Services\ResumeService.cs" />

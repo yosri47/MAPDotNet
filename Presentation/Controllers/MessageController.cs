@@ -1,4 +1,6 @@
 ﻿using Presentation.Models;
+using Service.IServices;
+using Service.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +15,10 @@ namespace Presentation.Controllers
 {
     public class MessageController : Controller
     {
+        IResourceService ms;
+        public MessageController() { ms = new ResourceService(); }
+
+
         // GET: Message
         public ActionResult ListMessage()
         {
@@ -29,7 +35,8 @@ namespace Presentation.Controllers
             HttpClient client = new HttpClient();
             client.BaseAddress = new Uri("http://localhost:18080");
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            HttpResponseMessage response = client.GetAsync("map-web/rest/mes/recu?idrecu=4").Result;
+            HttpResponseMessage response = client.GetAsync("map-web/rest/mes/recu?idrecu=" + id).Result;
+            //test
             if (response.IsSuccessStatusCode)
             {
 
@@ -46,10 +53,49 @@ namespace Presentation.Controllers
             return View();
         }
 
+        
+
+
+
+        // GET: MessageSend
+        public ActionResult ListMessageclient()
+        {
+            //int userid = HttpContext.Current.Session["idUser"];
+            string userid = System.Web.HttpContext.Current.Session["idUser"].ToString();
+            int id = int.Parse(userid);
+            System.Diagnostics.Debug.WriteLine(id);
+            System.Diagnostics.Debug.WriteLine(id);
+            System.Diagnostics.Debug.WriteLine(id);
+            System.Diagnostics.Debug.WriteLine(id);
+            System.Diagnostics.Debug.WriteLine(id);
+
+
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri("http://localhost:18080");
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            HttpResponseMessage response = client.GetAsync("map-web/rest/req/send?idsend=" + id).Result;
+            //test
+            if (response.IsSuccessStatusCode)
+            {
+
+
+                ViewBag.result = response.Content.ReadAsAsync<IEnumerable<MessageModel>>().Result;
+
+            }
+
+            else
+            {
+                ViewBag.result = "error";
+            }
+
+            return View();
+        }
 
         // GET: Message/Create
         public ActionResult Create()
         {
+            List<int> list = ms.GetMany().Select(r => r.userId).ToList();
+            ViewBag.result = list;
             return View();
         }
 

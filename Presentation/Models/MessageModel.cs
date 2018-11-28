@@ -15,7 +15,7 @@ namespace Presentation.Models
         public string type { get; set; }
         public DateTime dateSend { get; set; }
         public int rs { get; set; }
-        public AdminModel adminsend { get; set; }
+        public UserModel adminsend { get; set; }
 
         public ClientModel clrecu { get; set; }
 
