@@ -339,7 +339,7 @@ namespace Presentation.Controllers
 
         }
         [HttpPost]
-        public JsonResult DeleteCustomer(int ID)
+        public JsonResult DeleteData(int ID)
         {
             ressource r = rs.GetById(ID);
             r.availability = "Former Employee";

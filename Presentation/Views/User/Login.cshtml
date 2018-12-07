@@ -3,173 +3,120 @@
 @{
     Layout = null;
 }
-
-
 <!doctype html>
-<html class="no-js" lang="">
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="en">
+<!--<![endif]-->
 
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Map Login</title>
-    <meta name="description" content="">
+    <meta name="description" content="Sufee Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Google Fonts
-        ============================================ -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,700,900" rel="stylesheet">
-    <!-- Bootstrap CSS
-        ============================================ -->
-    <link rel="stylesheet" href="@Url.Content("~/Content/")Login/bootstrap.min.css">
-    <!-- font awesome CSS
-        ============================================ -->
-    <link rel="stylesheet" href="@Url.Content("~/Content/")Login/font-awesome.min.css">
-    <!-- owl.carousel CSS
-        ============================================ -->
-    <link rel="stylesheet" href="@Url.Content("~/Content/")Login/owl.carousel.css">
-    <link rel="stylesheet" href="@Url.Content("~/Content/")Login/owl.theme.css">
-    <link rel="stylesheet" href="@Url.Content("~/Content/")Login/owl.transitions.css">
-    <!-- animate CSS
-        ============================================ -->
-    <link rel="stylesheet" href="@Url.Content("~/Content/")Login/animate.css">
-    <!-- normalize CSS
-        ============================================ -->
-    <link rel="stylesheet" href="@Url.Content("~/Content/")Login/normalize.css">
-    <!-- mCustomScrollbar CSS
-        ============================================ -->
-    <link rel="stylesheet" href="@Url.Content("~/Content/")Login/jquery.mCustomScrollbar.min.css">
-    <!-- wave CSS
-        ============================================ -->
-    <link rel="stylesheet" href="@Url.Content("~/Content/")Login/waves.min.css">
-    <!-- Notika icon CSS
-        ============================================ -->
-    <link rel="stylesheet" href="@Url.Content("~/Content/")Login/notika-custom-icon.css">
-    <!-- main CSS
-        ============================================ -->
-    <link rel="stylesheet" href="@Url.Content("~/Content/")Login/main.css">
-    <!-- style CSS
-        ============================================ -->
-    <link rel="stylesheet" href="@Url.Content("~/Content/")Login/style.css">
-    <!-- responsive CSS
-        ============================================ -->
-    <link rel="stylesheet" href="@Url.Content("~/Content/")Login/responsive.css">
-    <!-- modernizr JS
-        ============================================ -->
-    <script src="@Url.Content("~/Content/")Login/modernizr-2.8.3.min.js"></script>
+    <link rel="apple-touch-icon" href="apple-icon.png">
+    <link rel="shortcut icon" href="favicon.ico">
+
+
+    <link rel="stylesheet" href="~/Content/Back/vendors/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/Content/Back/vendors/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/Content/Back/vendors/themify-icons/css/themify-icons.css">
+    <link rel="stylesheet" href="~/Content/Back/vendors/flag-icon-css/css/flag-icon.min.css">
+    <link rel="stylesheet" href="~/Content/Back/vendors/selectFX/css/cs-skin-elastic.css">
+
+    <link rel="stylesheet" href="~/Content/Back/css/style.css">
+
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
+
+
+
 </head>
-<body>
 
+<body class="bg-dark">
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
 
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
-        <div class="login-content">
-            <!-- Login -->
-            <div class="nk-block toggled" id="l-login">
-
-                <div class="nk-form">
-                    <form accept-charset="UTF-8" role="form">
-                        <div class="input-group">
-                            <span class="input-group-addon nk-ic-st-pro"><i class="notika-icon notika-support"></i></span>
-                            Login:
-                            <div class="nk-int-st">
-                                @Html.EditorFor(model => model.emailAddress, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.emailAddress, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                        <div class="input-group mg-t-15">
-                            <span class="input-group-addon nk-ic-st-pro"><i class="notika-icon notika-edit"></i></span>
-                            Password:
-                            <div class="nk-int-st">
-                                @Html.EditorFor(model => model.password, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                        <div class="fm-checkbox">
-                            <label><input type="checkbox" class="i-checks"> <i></i> Keep me signed in</label>
-                        </div>
-                        <button class="btn btn-login btn-success btn-float">Sign In</button>
-
-                    </form>
+    <div class="sufee-login d-flex align-content-center flex-wrap">
+        <div class="container">
+            <div class="login-content">
+                <div class="login-logo">
+                    <a href="#">
+                        <img class="align-content" src="~/Content/Back/images/levio.png" alt="">
+                    </a>
                 </div>
+                <div class="login-form">
+                    <form>
+                        <div class="form-group">
+                            <label>Email Address</label>
+                            @Html.EditorFor(model => model.emailAddress, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.emailAddress, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+
+                            @Html.PasswordFor(model => model.password, new { @class = "form-control" })
 
 
-                <div class="nk-navigation nk-lg-ic">
-                    <a href="#" data-ma-action="nk-login-switch" data-ma-block="#l-register"><i class="notika-icon notika-plus-symbol"></i> <span>Register</span></a>
-                    <a href="#" data-ma-action="nk-login-switch" data-ma-block="#l-forget-password"><i>?</i> <span>Forgot Password</span></a>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox"> Remember Me
+                            </label>
+                            <label class="pull-right">
+                                <a href="#">Forgotten Password?</a>
+                            </label>
+
+                        </div>
+                        <button type="submit" class="btn btn-success btn-flat m-b-30 m-t-30">Sign in</button>
+                        
+                       
+                    </form>
                 </div>
             </div>
         </div>
+    </div>
+}
+
+    <script src="~/Content/Back/vendors/jquery/dist/jquery.min.js"></script>
+    <script src="~/Content/Back/vendors/popper.js/dist/umd/popper.min.js"></script>
+    <script src="~/Content/Back/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="~/Content/Back/js/main.js"></script>
 
 
-    }
-
-    <script src="@Url.Content("~/Content/")Login/jquery-1.12.4.min.js"></script>
-    <!-- bootstrap JS
-        ============================================ -->
-    <script src="@Url.Content("~/Content/")Login/bootstrap.min.js"></script>
-    <!-- wow JS
-        ============================================ -->
-    <script src="@Url.Content("~/Content/")Login/wow.min.js"></script>
-    <!-- price-slider JS
-        ============================================ -->
-    <script src="@Url.Content("~/Content/")Login/jquery-price-slider.js"></script>
-    <!-- owl.carousel JS
-        ============================================ -->
-    <script src="@Url.Content("~/Content/")Login/owl.carousel.min.js"></script>
-    <!-- scrollUp JS
-        ============================================ -->
-    <script src="@Url.Content("~/Content/")Login/jquery.scrollUp.min.js"></script>
-    <!-- meanmenu JS
-        ============================================ -->
-    <script src="@Url.Content("~/Content/")Login/jquery.meanmenu.js"></script>
-    <!-- counterup JS
-        ============================================ -->
-    <script src="@Url.Content("~/Content/")Login/jquery.counterup.min.js"></script>
-    <script src="@Url.Content("~/Content/")Login/waypoints.min.js"></script>
-    <script src="@Url.Content("~/Content/")Login/counterup-active.js"></script>
-    <!-- mCustomScrollbar JS
-        ============================================ -->
-    <script src="@Url.Content("~/Content/")Login/jquery.mCustomScrollbar.concat.min.js"></script>
-    <!-- sparkline JS
-        ============================================ -->
-    <script src="@Url.Content("~/Content/")Login/jquery.sparkline.min.js"></script>
-    <script src="@Url.Content("~/Content/")Login/sparkline-active.js"></script>
-    <!-- flot JS
-        ============================================ -->
-    <script src="@Url.Content("~/Content/")Login/jquery.flot.js"></script>
-    <script src="@Url.Content("~/Content/")Login/jquery.flot.resize.js"></script>
-    <script src="@Url.Content("~/Content/")Login/flot-active.js"></script>
-    <!-- knob JS
-        ============================================ -->
-    <script src="@Url.Content("~/Content/")Login/jquery.knob.js"></script>
-    <script src="@Url.Content("~/Content/")Login/jquery.appear.js"></script>
-    <script src="@Url.Content("~/Content/")Login/knob-active.js"></script>
-    <!--  Chat JS
-        ============================================ -->
-    <script src="@Url.Content("~/Content/")Login/jquery.chat.js"></script>
-    <!--  wave JS
-        ============================================ -->
-    <script src="@Url.Content("~/Content/")Login/waves.min.js"></script>
-    <script src="@Url.Content("~/Content/")Login/wave-active.js"></script>
-    <!-- icheck JS
-        ============================================ -->
-    <script src="@Url.Content("~/Content/")Login/icheck.min.js"></script>
-    <script src="@Url.Content("~/Content/")Login/icheck-active.js"></script>
-    <!--  todo JS
-        ============================================ -->
-    <script src="@Url.Content("~/Content/")Login/jquery.todo.js"></script>
-
-    <!-- Login JS
-        ============================================ -->
-    <script src="@Url.Content("~/Content/")Login/login-action.js"></script>
-    <!-- plugins JS
-        ============================================ -->
-    <script src="@Url.Content("~/Content/")Login/plugins.js"></script>
-    <!-- main JS
-        ============================================ -->
-    <script src="@Url.Content("~/Content/")Login/main.js"></script>
 </body>
 
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

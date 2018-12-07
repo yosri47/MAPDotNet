@@ -76,6 +76,10 @@
                     <li>
                         <a href="~/Holiday/Index"> <i class="menu-icon ti-email"></i> Holidays </a>
                     </li>
+                    <li> <a href="~/Request/ListRequest"> <i class="menu-icon ti-email"></i> List Request </a></li>
+
+
+                    <li> <a href="~/Message/Map"> <i class="menu-icon fa fa-map-o"></i>Afficher Mes client dans map </a></li>
 
                     <h3 class="menu-title">Icons</h3><!-- /.menu-title -->
                     <li class="menu-item-has-children dropdown">
@@ -129,7 +133,19 @@ else if (HttpContext.Current.Session["userType"].ToString().Equals("Client"))
                     <li><i class="menu-icon fa fa-line-chart"></i><a href="~/Resource/Index">Manage resources</a></li>
                     <li><i class="menu-icon fa fa-pie-chart"></i><a href="~/Resource/Ranking">View Ranking</a></li>
                 </ul>
+
             </li>
+            <li>
+                <a href="~/Message/ListMessage"> <i class="menu-icon ti-email"></i> List Message </a>
+            </li>
+            <li> 
+                <a href="~/Request/Index"> <i class="menu-icon ti-email"></i> List Request Send </a>
+            </li>
+            <li> 
+                <a href="~/Requests/Create"> <i class="menu-icon ti-email"></i> Add new Request </a>
+            </li>
+
+            
 
             <h3 class="menu-title">Icons</h3><!-- /.menu-title -->
             <li class="menu-item-has-children dropdown">
@@ -271,7 +287,7 @@ else if (HttpContext.Current.Session["userType"].ToString().Equals("Resource"))
                 <div class="col-sm-5">
                     <div class="user-area dropdown float-right">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img class="user-avatar rounded-circle" src="~/Content/Back/images/admin.jpg" alt="User Avatar">
+                            <img class="user-avatar rounded-circle" src="~/Content/Upload/Pictures/Default.jpeg" alt="User Avatar">
                         </a>
                         <div class="user-menu dropdown-menu">
                             <a class="nav-link" href="#"><i class="fa fa-user"></i> My Profile</a>
